@@ -358,3 +358,14 @@ CREATE TABLE `supplier` (
 -- ----------------------------
 INSERT INTO `supplier` VALUES ('1', 'XYZ Pets', 'AC', '600 Avon Way', '', 'Los Angeles', 'CA', '94024', '212-947-0797');
 INSERT INTO `supplier` VALUES ('2', 'ABC Pets', 'AC', '700 Abalone Way', '', 'San Francisco ', 'CA', '94024', '415-947-0797');
+
+-- ----------------------------
+-- Table structure for `userlog`
+-- ----------------------------
+DROP TABLE IF EXISTS `userlog`;
+CREATE TABLE `userlog`  (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `time` datetime(0) NOT NULL,
+  `log` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

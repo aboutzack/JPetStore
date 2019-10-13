@@ -1,5 +1,6 @@
 package org.csu.jpetstore.web.servlets;
 
+import com.wf.captcha.utils.CaptchaUtil;
 import org.csu.jpetstore.domain.Account;
 import org.csu.jpetstore.service.AccountService;
 
@@ -24,9 +25,15 @@ public class SignInServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        String captcha = req.getParameter("captcha");
         accountService = new AccountService();
         Account account = accountService.getAccount(username, password);
-        if(account == null){
+        if(!CaptchaUtil.ver(captcha, req)){
+            CaptchaUtil.clear(req);
+            req.setAttribute("msg", "验证码错误!");
+            req.getRequestDispatcher(SIGN_IN).forward(req, resp);
+        }
+        else if(account == null){
             req.setAttribute("msg", "用户名或密码错误");
             req.getRequestDispatcher(SIGN_IN).forward(req, resp);
         }else{

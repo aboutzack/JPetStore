@@ -22,7 +22,7 @@ public class ItemServlet extends HttpServlet {
         Product product = item.getProduct();
         req.setAttribute("item", item);
         req.setAttribute("product", product);
-            req.getRequestDispatcher(ITEM).forward(req, resp);
+        req.getRequestDispatcher(ITEM).forward(req, resp);
     }
 
     @Override

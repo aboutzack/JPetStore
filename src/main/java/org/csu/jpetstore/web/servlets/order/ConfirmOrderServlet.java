@@ -1,7 +1,9 @@
 package org.csu.jpetstore.web.servlets.order;
 
+import org.apache.log4j.Logger;
 import org.csu.jpetstore.domain.Order;
 import org.csu.jpetstore.service.OrderService;
+import org.csu.jpetstore.web.servlets.Log4JInitServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +16,7 @@ public class ConfirmOrderServlet extends HttpServlet {
     private OrderService orderService;
     private static final String VIEW_ORDER = "/WEB-INF/jsp/order/ViewOrder.jsp";
     private static final String SHIPPING = "/WEB-INF/jsp/order/ShippingForm.jsp";
+    private static Logger logger = Logger.getLogger(Log4JInitServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -52,6 +55,7 @@ public class ConfirmOrderServlet extends HttpServlet {
             orderService.insertOrder(order);
             //清空购物车
             session.setAttribute("cart", null);
+            logger.info(String.format("用户:%s 生成订单 订单号:%d", order.getUsername(), order.getOrderId()));
             req.getRequestDispatcher(VIEW_ORDER).forward(req, resp);
         }
     }
