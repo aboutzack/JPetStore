@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <link rel="StyleSheet" href="../static/css/jpetstore.css" type="text/css" media="screen"/>

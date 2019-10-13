@@ -2,7 +2,9 @@ package org.csu.jpetstore.web.servlets;
 
 import com.wf.captcha.utils.CaptchaUtil;
 import org.csu.jpetstore.domain.Account;
+import org.csu.jpetstore.domain.Cart;
 import org.csu.jpetstore.service.AccountService;
+import org.csu.jpetstore.service.CartService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +16,7 @@ import java.io.IOException;
 public class SignInServlet extends HttpServlet {
     private static final String SIGN_IN = "/WEB-INF/jsp/account/SignonForm.jsp";
     private AccountService accountService;
+    private CartService cartService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,6 +30,7 @@ public class SignInServlet extends HttpServlet {
         String password = req.getParameter("password");
         String captcha = req.getParameter("captcha");
         accountService = new AccountService();
+        cartService = new CartService();
         Account account = accountService.getAccount(username, password);
         if(!CaptchaUtil.ver(captcha, req)){
             CaptchaUtil.clear(req);
@@ -40,6 +44,8 @@ public class SignInServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("authenticated", true);
             session.setAttribute("account", account);
+            Cart cart = cartService.getCartByUsername(account);
+            session.setAttribute("cart", cart);
             resp.sendRedirect("/main");
         }
     }

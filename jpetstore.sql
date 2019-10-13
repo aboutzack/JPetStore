@@ -369,3 +369,17 @@ CREATE TABLE `userlog`  (
   `log` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `cart`
+-- ----------------------------
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE `cart`  (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `username` varchar(25) NOT NULL,
+  `itemid` varchar(10) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `totalprice` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE index(`username` ,`itemid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
